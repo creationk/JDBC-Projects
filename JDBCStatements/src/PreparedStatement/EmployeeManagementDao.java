@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class EmployeeManagementDao {
 	private static final String userName = "SYSTEM";
-	private static final String password = "";
+	private static final String password = "MYDB123";
 	private static final String driver = "oracle.jdbc.driver.OracleDriver";
-	private static final String dbUrl = "jdbc:oracle:thin:@HOST:1521:DB";
+	private static final String dbUrl = "jdbc:oracle:thin:@SRUJANA:1521:MYDB";
 
 	Connection conn = null;
 
@@ -20,13 +20,14 @@ public class EmployeeManagementDao {
 			ArrayList<Employee> employeeList = new ArrayList<Employee>();
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbUrl, userName, password);
-			PreparedStatement st = conn.prepareStatement("INSERT INTO EMPLOYEES VALUES(?,?)");
+			PreparedStatement st = conn
+					.prepareStatement("INSERT INTO EMPLOYEES VALUES(?,?)");
 			st.setString(1, employee.getEmployeeName());
 			st.setInt(2, employee.getEmployeeId());
 			st.executeUpdate();
-			st=conn.prepareStatement("SELECT * FROM EMPLOYEES");
+			st = conn.prepareStatement("SELECT * FROM EMPLOYEES");
 			ResultSet rs = st.executeQuery();
-			
+
 			while (rs.next()) {
 				System.out.println("**");
 				Employee retrievedEmployee = new Employee();
@@ -44,6 +45,6 @@ public class EmployeeManagementDao {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 		} catch (SQLException e) {
-		} 
+		}
 	}
 }
